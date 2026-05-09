@@ -1,0 +1,35 @@
+# ============================================================
+# Teaching Machines to Dream
+# Example Pipeline Configuration
+# Reference: Chapter 6, Building Synthetic Data Pipelines
+# ============================================================
+
+pipeline_name: adult-census-synthetic
+data_type:     tabular
+synthesizer:   gaussian_copula
+
+source:
+  path:        data/real/adult.csv
+  sample_size: 3000
+  random_seed: 42
+
+generation:
+  target_rows: 3000
+  random_seed: 42
+
+quality_gates:
+  min_column_similarity: 0.80
+  max_correlation_diff:  0.15
+  min_tstr_score:        0.85
+
+output:
+  format:   csv
+  base_dir: pipeline_output
+
+# ============================================================
+# Synthesizer options:
+#   gaussian_copula   Fast, interpretable, good baseline
+#   ctgan             Complex distributions, imbalanced classes
+#   tvae              Continuous-heavy feature spaces
+#   hma               Multi-table relational databases
+# ============================================================
